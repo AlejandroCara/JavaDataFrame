@@ -1,9 +1,9 @@
 package Data;
 
-public class FileReaderFactory {
+public class FileReader {
 
     //Factory to read 3 types of files CSV, JSON, TXT
-    public FileReaderFactory(String path){
+    public FileReader(String path){
 
     }
 

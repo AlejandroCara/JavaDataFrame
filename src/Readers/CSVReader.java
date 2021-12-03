@@ -1,16 +1,18 @@
-package Data;
+package Readers;
+
+import Data.DataFrame;
+import Factories.ReaderFactory;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
-public class CSVReader {
+public class CSVReader extends ReaderFactory {
 
-    private List<String> columns;
-    private List<List<String>> values;
+    /*private List<String> columns;
+    private List<List<String>> values;*/
     private Path path;
 
     //Class to read and save data from csv
@@ -22,10 +24,14 @@ public class CSVReader {
         try(BufferedReader br= Files.newBufferedReader(path)) {
             String firstLine=br.readLine().replace(" \"", "").replace("\"", "");
             if(firstLine!=null) {
-                columns = Arrays.asList(firstLine.split(","));
-                values = br.lines()
+                DataFrame.setColumns(Arrays.asList(firstLine.split(",")));
+                //columns = Arrays.asList(firstLine.split(","));
+                DataFrame.setValues(br.lines()
                         .map(line -> Arrays.asList(line.split(",")))
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toList()));
+                /*values = br.lines()
+                        .map(line -> Arrays.asList(line.split(",")))
+                        .collect(Collectors.toList());*/
             }
 
         } catch (IOException e) {
@@ -33,7 +39,7 @@ public class CSVReader {
         }
     }
 
-    public void list(){
+    /*public void list(){
         for(int i = 0; i < columns.size(); i++){
             System.out.println("Column" + columns.get(i));
             for(int j = 0; j < values.size(); j++){
@@ -46,5 +52,5 @@ public class CSVReader {
     public String get(String col, int row){
                         //row             column
         return values.get(row).get(columns.indexOf(col));
-    }
+    }*/
 }

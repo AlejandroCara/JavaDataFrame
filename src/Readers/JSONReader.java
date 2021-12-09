@@ -6,14 +6,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.net.StandardSocketOptions;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
-
-public class JSONReader extends ReaderFactory {
+public class JSONReader implements ReaderFactory {
 
     private List<String> columns;
     private List<List<String>> values;
@@ -25,30 +26,20 @@ public class JSONReader extends ReaderFactory {
     }
 
     public void read2(){
-
-        FileReader filereader = null;
         try {
-            filereader = new FileReader(String.valueOf(path));
-
-            BufferedReader bufferedreader = new BufferedReader(filereader);
-            String line = bufferedreader.readLine();
-            //While we have read in a valid line
-            while (line != null) {
-                //Try to parse integer from the String line
-
-                System.out.println(line);
-
-                //System.exit(1);
-
-                line = bufferedreader.readLine();
+            BufferedReader br= Files.newBufferedReader(path);
+            String firstLine=br.readLine().replace(" \"", "").replace("\"", "");
+            if(firstLine!=null) {
+                DataFrame.setColumns(Arrays.asList(firstLine.split(";")));
+                //columns = Arrays.asList(firstLine.split(","));
+                DataFrame.setValues(br.lines()
+                        .map(line -> Arrays.asList(line))
+                        .collect(Collectors.toList()));
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void read(){
@@ -84,8 +75,6 @@ public class JSONReader extends ReaderFactory {
                 }
                 DataFrame.addValue(row);
             }
-
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

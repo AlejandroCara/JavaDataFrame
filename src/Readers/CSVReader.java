@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class CSVReader extends ReaderFactory {
+public class CSVReader implements ReaderFactory {
 
     /*private List<String> columns;
     private List<List<String>> values;*/
@@ -21,7 +21,8 @@ public class CSVReader extends ReaderFactory {
     }
 
     public void read(){
-        try(BufferedReader br= Files.newBufferedReader(path)) {
+        try {
+            BufferedReader br= Files.newBufferedReader(path);
             String firstLine=br.readLine().replace(" \"", "").replace("\"", "");
             if(firstLine!=null) {
                 DataFrame.setColumns(Arrays.asList(firstLine.split(",")));
@@ -29,9 +30,6 @@ public class CSVReader extends ReaderFactory {
                 DataFrame.setValues(br.lines()
                         .map(line -> Arrays.asList(line.split(",")))
                         .collect(Collectors.toList()));
-                /*values = br.lines()
-                        .map(line -> Arrays.asList(line.split(",")))
-                        .collect(Collectors.toList());*/
             }
 
         } catch (IOException e) {

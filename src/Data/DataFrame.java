@@ -1,60 +1,63 @@
 package Data;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataFrame {
 
-    private static List<String> columns;
-    private static List<List<String>> values = new ArrayList<>();
+    private static DataFrame df = new DataFrame();
 
-    public DataFrame(){
+    private List<String> columns;
+    private List<List<String>> values = new ArrayList<>();
 
-    }
+    private DataFrame(){}
+
+    public static DataFrame getInstance(){return df;}
 
     public static void setColumns(List inColumns){
-        columns = inColumns;
+        df.columns = inColumns;
     }
 
     public static void setValues(List<List<String>> inValues){
-        values = inValues;
+        df.values = inValues;
     }
 
     public static int numOfTags(){
-        return columns.size();
+        return df.columns.size();
     }
 
     public static String getTagAt(int i){
-        return columns.get(i);
+        return df.columns.get(i);
     }
 
     public static void addValue(List<String> inValue){
-        values.add(inValue);
+        df.values.add(inValue);
     }
 
     public static String at(int row, String col){
-        List srow = values.get(row);
-        int fd = columns.indexOf(col);
-        return values.get(row).get(columns.indexOf(col));
+        List srow = df.values.get(row);
+        int fd = df.columns.indexOf(col);
+        return df.values.get(row).get(df.columns.indexOf(col));
     }
 
     public static String iat(int row, int col) {
-        return values.get(row).get(col);
+        return df.values.get(row).get(col);
     }
 
-    public int columns() {
-        return 0;
+    public static int columns() {
+        return df.columns.size();
     }
 
-    public int size() {
-        return 0;
+    public static int size() {
+        return df.values.size();
     }
 
-    public String sort(String col) {
+    public static String sort(String col) {
         return null;
     }
 
-    public String query() {
+    public static String query(String label) {
         return null;
     }
 }

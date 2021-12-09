@@ -1,9 +1,6 @@
 package Factories;
 
-public class ReaderFactory {
+public interface ReaderFactory {
 
-
-    public void read() {
-
-    }
+    void read();
 }

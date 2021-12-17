@@ -1,6 +1,8 @@
 package Test;
 
 
+import Comparators.AscendantComparator;
+import Comparators.DescendantComparator;
 import Data.DataFrame;
 import Factories.ReaderFactory;
 import Readers.CSVReader;
@@ -17,38 +19,47 @@ public class DFtester {
     }
 
     public static void testCSV(){
-        ReaderFactory read = new CSVReader("cities.csv");
-        DataFrame df = DataFrame.getInstance();
+        ReaderFactory reader = new CSVReader("cities.csv");
+        DataFrame df = reader.read();
+        String column = "LatS";
+        int indexOfColumn;
 
-        read.read();
-
-        //System.out.println(read.get("State", 1));
         System.out.println(df.at(1, "State").trim());
         System.out.println(df.iat(1, 2).trim());
         System.out.println("Columns: " + df.columns());
         System.out.println("Rows: " + df.size());
+        indexOfColumn = df.getColumns().indexOf(column);
+        df.sort(column, new DescendantComparator(indexOfColumn));
+        df.list();
     }
 
     public static void testJSON(){
-        ReaderFactory read = new JSONReader("cities.json");
-        DataFrame df = DataFrame.getInstance();
+        ReaderFactory reader = new JSONReader("cities.json");
+        DataFrame df = reader.read();
+        String column = "LatS";
+        int indexOfColumn;
 
-        read.read();
         System.out.println(df.at(1, "State").trim());
         System.out.println(df.iat(1, 2).trim());
         System.out.println("Columns: " + df.columns());
         System.out.println("Rows: " + df.size());
+        indexOfColumn = df.getColumns().indexOf(column);
+        df.sort(column, new AscendantComparator(indexOfColumn));
+        df.list();
     }
 
     public static void testTXT(){
-        ReaderFactory read = new TXTReader("cities.txt");
-        DataFrame df = DataFrame.getInstance();
-
-        read.read();
+        ReaderFactory reader = new TXTReader("cities.txt");
+        DataFrame df = reader.read();
+        String column = "LatS";
+        int indexOfColumn;
 
         System.out.println(df.at(1, "State").trim());
         System.out.println(df.iat(1, 2).trim());
         System.out.println("Columns: " + df.columns());
         System.out.println("Rows: " + df.size());
+        indexOfColumn = df.getColumns().indexOf(column);
+        df.sort(column, new AscendantComparator(indexOfColumn));
+        df.list();
     }
 }

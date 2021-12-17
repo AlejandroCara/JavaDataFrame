@@ -1,6 +1,8 @@
 package Factories;
 
+import Data.DataFrame;
+
 public interface ReaderFactory {
 
-    void read();
+    public DataFrame read();
 }

@@ -11,8 +11,6 @@ import java.util.stream.Collectors;
 
 public class CSVReader implements ReaderFactory {
 
-    /*private List<String> columns;
-    private List<List<String>> values;*/
     private Path path;
 
     //Class to read and save data from csv
@@ -20,35 +18,24 @@ public class CSVReader implements ReaderFactory {
         this.path = Path.of(path);
     }
 
-    public void read(){
+    public DataFrame read(){
+        DataFrame df = new DataFrame();
         try {
             BufferedReader br= Files.newBufferedReader(path);
             String firstLine=br.readLine().replace(" \"", "").replace("\"", "");
             if(firstLine!=null) {
-                DataFrame.setColumns(Arrays.asList(firstLine.split(",")));
+                df.setColumns(Arrays.asList(firstLine.split(",")));
                 //columns = Arrays.asList(firstLine.split(","));
-                DataFrame.setValues(br.lines()
-                        .map(line -> Arrays.asList(line.split(",")))
-                        .collect(Collectors.toList()));
+                df.setValues(br.lines()
+                    .map(line -> Arrays.asList(line.split(",")))
+                    .collect(Collectors.toList()));
             }
 
+            return df;
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
-    /*public void list(){
-        for(int i = 0; i < columns.size(); i++){
-            System.out.println("Column" + columns.get(i));
-            for(int j = 0; j < values.size(); j++){
-                System.out.println("Value (i: " + i + "; j: " + j + "): " + values.get(j).get(i));
-            }
-        }
-        System.out.println("");
+        return null;
     }
-
-    public String get(String col, int row){
-                        //row             column
-        return values.get(row).get(columns.indexOf(col));
-    }*/
 }

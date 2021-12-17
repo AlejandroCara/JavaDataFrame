@@ -18,20 +18,25 @@ public class TXTReader implements ReaderFactory {
         this.path = Path.of(path);
     }
 
-    public void read(){
+    public DataFrame read(){
         try {
+
+            DataFrame df = new DataFrame();
+
             BufferedReader br= Files.newBufferedReader(path);
             String firstLine=br.readLine().replace(" \"", "").replace("\"", "");
             if(firstLine!=null) {
-                DataFrame.setColumns(Arrays.asList(firstLine.split(";")));
+                df.setColumns(Arrays.asList(firstLine.split(";")));
                 //columns = Arrays.asList(firstLine.split(","));
-                DataFrame.setValues(br.lines()
-                        .map(line -> Arrays.asList(line.split(";")))
-                        .collect(Collectors.toList()));
+                df.setValues(br.lines()
+                    .map(line -> Arrays.asList(line.split(";")))
+                    .collect(Collectors.toList()));
             }
 
+            return df;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }

@@ -2,62 +2,87 @@ package Data;
 
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class DataFrame {
 
-    private static DataFrame df = new DataFrame();
+    //private  DataFrame this = new DataFrame();
 
     private List<String> columns;
     private List<List<String>> values = new ArrayList<>();
 
-    private DataFrame(){}
+    public DataFrame(){
+        
+    }
+    
 
-    public static DataFrame getInstance(){return df;}
-
-    public static void setColumns(List inColumns){
-        df.columns = inColumns;
+    public void setColumns(List inColumns){
+        this.columns = inColumns;
     }
 
-    public static void setValues(List<List<String>> inValues){
-        df.values = inValues;
+    public void setValues(List<List<String>> inValues){
+        this.values = inValues;
     }
 
-    public static int numOfTags(){
-        return df.columns.size();
+    public List<List<String>> getValues(){
+        return this.values;
     }
 
-    public static String getTagAt(int i){
-        return df.columns.get(i);
+    public int numOfTags(){
+        return this.columns.size();
     }
 
-    public static void addValue(List<String> inValue){
-        df.values.add(inValue);
+    public String getTagAt(int i){
+        return this.columns.get(i);
     }
 
-    public static String at(int row, String col){
-        List srow = df.values.get(row);
-        int fd = df.columns.indexOf(col);
-        return df.values.get(row).get(df.columns.indexOf(col));
+    public List<String> getColumns(){
+        return this.columns;
     }
 
-    public static String iat(int row, int col) {
-        return df.values.get(row).get(col);
+    public void addValue(List<String> inValue){
+        this.values.add(inValue);
     }
 
-    public static int columns() {
-        return df.columns.size();
+    public String at(int row, String col){
+        List srow = this.values.get(row);
+        int fd = this.columns.indexOf(col);
+        return this.values.get(row).get(this.columns.indexOf(col));
     }
 
-    public static int size() {
-        return df.values.size();
+    public String iat(int row, int col) {
+        return this.values.get(row).get(col);
     }
 
-    public static String sort(String col) {
+    public int columns() {
+        return this.columns.size();
+    }
+
+    public int size() {
+        return this.values.size();
+    }
+
+    public <T> void sort(T column, Comparator comparator) {
+        Collections.sort(values, comparator);
+        //Collections.sort(compararator.compare(values.));
+    }
+
+    public String query(String label) {
         return null;
     }
 
-    public static String query(String label) {
-        return null;
+    public void list(){
+        for(int i = 0; i < this.columns.size(); i++){
+            System.out.print(columns.get(i) + "  ");
+        }
+        System.out.println();
+        for (int i = 0; i < this.values.size(); i++){
+            for(int j = 0; j < this.columns.size(); j++){
+                System.out.print(this.values.get(i).get(j) + " ");
+            }
+            System.out.println();
+        }
     }
 }

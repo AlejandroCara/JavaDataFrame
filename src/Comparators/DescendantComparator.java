@@ -3,15 +3,23 @@ package Comparators;
 import java.util.Comparator;
 import java.util.List;
 
-public class DescendantComparator<T extends Comparable<T>> implements Comparator<List<T>> {
+public class DescendantComparator extends CustomComparator {
 
-    private int column;
-
-    public DescendantComparator(int column){
-        this.column = column;
+    public DescendantComparator(){
+        super();
     }
 
     @Override
+    public int compare(List o1, List o2) {
+        int r = String.valueOf(o2.get(super.getColumnIndex()))
+                .compareTo(String.valueOf(o1.get(super.getColumnIndex())));
+        if (r != 0) {
+            return r;
+        }
+        return Integer.compare(o2.size(), o1.size());
+    }
+
+    /*@Override
     public int compare(List<T> o1, List<T> o2) {
         //System.out.println(o1.get(3));
         int c = o2.get(column).compareTo(o1.get(column));
@@ -19,5 +27,5 @@ public class DescendantComparator<T extends Comparable<T>> implements Comparator
             return c;
         }
         return Integer.compare(o1.size(), o2.size());
-    }
+    }*/
 }

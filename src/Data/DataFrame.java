@@ -1,10 +1,15 @@
 package Data;
 
-import javax.xml.crypto.Data;
+import Comparators.CustomComparator;
+import Predicates.CustomPredicate;
+import Predicates.GreaterThanPredicator;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class DataFrame {
 
@@ -64,13 +69,24 @@ public class DataFrame {
         return this.values.size();
     }
 
-    public <T> void sort(T column, Comparator comparator) {
+    public <T> void sort(String column, CustomComparator comparator) {
+        comparator.setColumnIndex(columns.indexOf(column));
         Collections.sort(values, comparator);
         //Collections.sort(compararator.compare(values.));
     }
 
-    public String query(String label) {
-        return null;
+    public List<List<String>> query(String column, CustomPredicate predicator) {
+        predicator.setColumnIndex(this.columns.indexOf(column));
+        return (List<List<String>>) values.stream().filter(predicator).collect(Collectors.toList());
+
+        /*
+        values.stream()
+                .filter(row -> row.get(columns.indexOf(column)) >= 0.2)
+                .collect(Collectors.toList());
+        */
+        /*List<List<String>> returnValue = (List<List<String>>) values.stream()
+                                            .filter(new Predicator())
+                                            .collect(Collectors.toList());*/
     }
 
     public void list(){

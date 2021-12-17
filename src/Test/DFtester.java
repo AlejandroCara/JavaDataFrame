@@ -5,9 +5,14 @@ import Comparators.AscendantComparator;
 import Comparators.DescendantComparator;
 import Data.DataFrame;
 import Factories.ReaderFactory;
+import Predicates.EqualThanPredicator;
+import Predicates.GreaterThanPredicator;
+import Predicates.LowerThanPredicate;
 import Readers.CSVReader;
 import Readers.JSONReader;
 import Readers.TXTReader;
+
+import java.util.List;
 
 public class DFtester {
 
@@ -22,15 +27,16 @@ public class DFtester {
         ReaderFactory reader = new CSVReader("cities.csv");
         DataFrame df = reader.read();
         String column = "LatS";
-        int indexOfColumn;
 
         System.out.println(df.at(1, "State").trim());
         System.out.println(df.iat(1, 2).trim());
         System.out.println("Columns: " + df.columns());
         System.out.println("Rows: " + df.size());
-        indexOfColumn = df.getColumns().indexOf(column);
-        df.sort(column, new DescendantComparator(indexOfColumn));
+        df.sort(column, new DescendantComparator());
         df.list();
+
+        List<List<String>> values = df.query(column, new LowerThanPredicate("11"));
+        //list(values);
     }
 
     public static void testJSON(){
@@ -44,7 +50,7 @@ public class DFtester {
         System.out.println("Columns: " + df.columns());
         System.out.println("Rows: " + df.size());
         indexOfColumn = df.getColumns().indexOf(column);
-        df.sort(column, new AscendantComparator(indexOfColumn));
+        df.sort(column, new AscendantComparator());
         df.list();
     }
 
@@ -59,7 +65,17 @@ public class DFtester {
         System.out.println("Columns: " + df.columns());
         System.out.println("Rows: " + df.size());
         indexOfColumn = df.getColumns().indexOf(column);
-        df.sort(column, new AscendantComparator(indexOfColumn));
+        df.sort(column, new AscendantComparator());
         df.list();
+    }
+
+    public static void list(List<List<String>> values){
+        System.out.println();
+        for (int i = 0; i < values.size(); i++){
+            for(int j = 0; j < 10; j++){
+                System.out.print(values.get(i).get(j) + " ");
+            }
+            System.out.println();
+        }
     }
 }

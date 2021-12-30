@@ -4,6 +4,7 @@ import Comparators.CustomComparator;
 import Composite.AComponent;
 import Factories.ReaderFactory;
 import Predicates.CustomPredicate;
+import Visitor.Visitor;
 
 import java.io.Reader;
 import java.util.ArrayList;
@@ -96,5 +97,9 @@ public class DataFrame implements AComponent {
             }
             System.out.println();
         }
+    }
+
+    public void accept(Visitor v){
+        v.visit(this);
     }
 }

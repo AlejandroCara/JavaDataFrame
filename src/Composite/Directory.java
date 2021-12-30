@@ -3,6 +3,7 @@ package Composite;
 import Comparators.CustomComparator;
 import Data.DataFrame;
 import Predicates.CustomPredicate;
+import Visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,5 +69,9 @@ public class Directory implements AComponent{
         return result;
     }
 
-
+    public void accept(Visitor v){
+        for(AComponent component: childs){
+            component.accept(v);
+        }
+    }
 }

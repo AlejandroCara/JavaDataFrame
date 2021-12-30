@@ -1,12 +1,13 @@
 package Visitor;
 
+import Comparators.AscendantComparator;
 import Comparators.DescendantComparator;
 import Composite.AComponent;
 
 public class MinimumVisitor implements Visitor{
 
     private String label;
-    private int min = Integer.MAX_VALUE;
+    private float min = Float.MAX_VALUE;
 
     public MinimumVisitor(String label){
         this.label = label;
@@ -14,13 +15,14 @@ public class MinimumVisitor implements Visitor{
 
     @Override
     public void visit(AComponent e) {
-        e.sort(label, new DescendantComparator());
-        if(Integer.valueOf(e.at(0, label)) < min){
-            min = Integer.valueOf(e.at(0, label));
+        e.sort(label, new AscendantComparator());
+        float val = Float.valueOf(e.at(0, label).replace(" ", ""));
+        if(val < min){
+            min = val;
         }
     }
 
-    public int getMin(){
+    public float getMin(){
         return this.min;
     }
 }

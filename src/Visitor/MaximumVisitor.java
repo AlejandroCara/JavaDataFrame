@@ -6,7 +6,7 @@ import Composite.AComponent;
 public class MaximumVisitor implements Visitor{
 
     private String label;
-    private int max = Integer.MIN_VALUE;
+    private float max = Float.MIN_VALUE;
 
     public MaximumVisitor(String label){
         this.label = label;
@@ -15,12 +15,13 @@ public class MaximumVisitor implements Visitor{
     @Override
     public void visit(AComponent e) {
         e.sort(label, new DescendantComparator());
-        if(Integer.valueOf(e.at(0, label)) > max){
-            max = Integer.valueOf(e.at(0, label));
+        float val = Float.valueOf(e.at(0, label).replace(" ", ""));
+        if(val > max){
+            max = val;
         }
     }
 
-    public int getMax(){
+    public float getMax(){
         return this.max;
     }
 }

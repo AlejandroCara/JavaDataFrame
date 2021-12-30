@@ -10,8 +10,16 @@ import java.util.List;
 
 public class Directory implements AComponent{
 
-    private List<AComponent> childs;
+    private List<AComponent> childs = new ArrayList<AComponent>();
+    private String name;
 
+    public Directory(String name){
+        this.name = name;
+    }
+
+    public void addChild(AComponent c){
+        this.childs.add(c);
+    }
 
     @Override
     public String at(int row, String col) {

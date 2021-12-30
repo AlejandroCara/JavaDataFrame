@@ -6,7 +6,7 @@ import Composite.AComponent;
 public class SumVisitor implements Visitor{
 
     private String label;
-    private int sumVal = 0;
+    private float sumVal = 0;
     private int sumSize = 0;
 
     public SumVisitor(String label){
@@ -18,12 +18,12 @@ public class SumVisitor implements Visitor{
         e.sort(label, new DescendantComparator());
         sumSize+=e.size();
         for(int i = 0; i < e.size(); i++){
-            sumVal += Integer.valueOf(e.at(i, label));
+            sumVal += Float.valueOf(e.at(i, label).replace(" ", ""));
         }
 
     }
 
-    public int getSum(){
+    public float getSum(){
         return this.sumVal;
     }
 

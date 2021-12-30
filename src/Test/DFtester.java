@@ -2,21 +2,27 @@ package Test;
 
 
 import Comparators.AscendantComparator;
+import Composite.Directory;
 import Data.DataFrame;
 import Factories.ReaderFactory;
 import Predicates.EqualThanPredicate;
 import Factories.CSVReaderFactory;
 import Factories.JSONReaderFactory;
 import Factories.TXTReaderFactory;
+import Visitor.MaximumVisitor;
+import Visitor.Visitor;
+import Visitor.SumVisitor;
+import Visitor.MinimumVisitor;
 
 import java.util.List;
 
 public class DFtester {
 
     public static void main(String[] args) {
-        testCSV();
+        //testCSV();
         //testJSON();
         //testTXT();
+        testComposite();
     }
 
     public static void testCSV(){
@@ -71,6 +77,18 @@ public class DFtester {
         indexOfColumn = df.getColumns().indexOf(column);
         df.sort(column, new AscendantComparator());
         df.list();
+    }
+
+    public static void testComposite(){
+        Directory root = new Directory("C:");
+        DataFrame df = new DataFrame();
+        df.readDataFromFile(new CSVReaderFactory("cities.csv"));
+
+        root.addChild(df);
+
+        Visitor mv = new MinimumVisitor("LatS");
+        root.accept(mv);
+        System.out.println(((MinimumVisitor)mv).getMin());
     }
 
     public static void list(List<List<String>> values){

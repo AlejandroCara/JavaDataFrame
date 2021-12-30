@@ -1,17 +1,17 @@
 package Data;
 
 import Comparators.CustomComparator;
+import Composite.AComponent;
+import Factories.ReaderFactory;
 import Predicates.CustomPredicate;
-import Predicates.GreaterThanPredicator;
 
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class DataFrame {
+public class DataFrame implements AComponent {
 
     //private  DataFrame this = new DataFrame();
 
@@ -19,9 +19,14 @@ public class DataFrame {
     private List<List<String>> values = new ArrayList<>();
 
     public DataFrame(){
-        
+
     }
-    
+
+    public void readDataFromFile(ReaderFactory rf){
+        DataFrame df = rf.read();
+        this.columns = df.getColumns();
+        this.values = df.getValues();
+    }
 
     public void setColumns(List inColumns){
         this.columns = inColumns;
@@ -52,8 +57,8 @@ public class DataFrame {
     }
 
     public String at(int row, String col){
-        List srow = this.values.get(row);
-        int fd = this.columns.indexOf(col);
+        //List srow = this.values.get(row);
+        //int fd = this.columns.indexOf(col);
         return this.values.get(row).get(this.columns.indexOf(col));
     }
 
@@ -78,15 +83,6 @@ public class DataFrame {
     public List<List<String>> query(String column, CustomPredicate predicator) {
         predicator.setColumnIndex(this.columns.indexOf(column));
         return (List<List<String>>) values.stream().filter(predicator).collect(Collectors.toList());
-
-        /*
-        values.stream()
-                .filter(row -> row.get(columns.indexOf(column)) >= 0.2)
-                .collect(Collectors.toList());
-        */
-        /*List<List<String>> returnValue = (List<List<String>>) values.stream()
-                                            .filter(new Predicator())
-                                            .collect(Collectors.toList());*/
     }
 
     public void list(){

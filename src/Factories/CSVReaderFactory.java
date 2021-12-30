@@ -1,42 +1,40 @@
-package Readers;
+package Factories;
 
 import Data.DataFrame;
 import Factories.ReaderFactory;
 
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class TXTReader implements ReaderFactory {
+public class CSVReaderFactory implements ReaderFactory {
 
     private Path path;
 
-    public TXTReader(String path) {
+    //Class to read and save data from csv
+    public CSVReaderFactory(String path){
         this.path = Path.of(path);
     }
 
     public DataFrame read(){
+        DataFrame df = new DataFrame();
         try {
-
-            DataFrame df = new DataFrame();
-
             BufferedReader br= Files.newBufferedReader(path);
             String firstLine=br.readLine().replace(" \"", "").replace("\"", "");
             if(firstLine!=null) {
-                df.setColumns(Arrays.asList(firstLine.split(";")));
+                df.setColumns(Arrays.asList(firstLine.split(",")));
                 //columns = Arrays.asList(firstLine.split(","));
                 df.setValues(br.lines()
-                    .map(line -> Arrays.asList(line.split(";")))
+                    .map(line -> Arrays.asList(line.split(",")))
                     .collect(Collectors.toList()));
             }
-
             return df;
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 }

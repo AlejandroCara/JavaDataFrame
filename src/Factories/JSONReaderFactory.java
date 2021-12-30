@@ -1,4 +1,4 @@
-package Readers;
+package Factories;
 
 import Data.DataFrame;
 import Factories.ReaderFactory;
@@ -14,14 +14,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class JSONReader implements ReaderFactory {
+public class JSONReaderFactory implements ReaderFactory {
 
     private List<String> columns;
     private List<List<String>> values;
     private Path path;
 
     //Class to read and save data from csv
-    public JSONReader(String path) {
+    public JSONReaderFactory(String path) {
         this.path = Path.of(path);
     }
 

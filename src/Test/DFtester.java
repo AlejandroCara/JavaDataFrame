@@ -2,15 +2,12 @@ package Test;
 
 
 import Comparators.AscendantComparator;
-import Comparators.DescendantComparator;
 import Data.DataFrame;
 import Factories.ReaderFactory;
-import Predicates.EqualThanPredicator;
-import Predicates.GreaterThanPredicator;
-import Predicates.LowerThanPredicate;
-import Readers.CSVReader;
-import Readers.JSONReader;
-import Readers.TXTReader;
+import Predicates.EqualThanPredicate;
+import Factories.CSVReaderFactory;
+import Factories.JSONReaderFactory;
+import Factories.TXTReaderFactory;
 
 import java.util.List;
 
@@ -20,43 +17,50 @@ public class DFtester {
         testCSV();
         //testJSON();
         //testTXT();
-
     }
 
     public static void testCSV(){
-        ReaderFactory reader = new CSVReader("cities.csv");
-        DataFrame df = reader.read();
+        //ReaderFactory reader = new CSVReaderFactory("cities.csv");
+        //DataFrame df = reader.read();
+        DataFrame df = new DataFrame();
+        df.readDataFromFile(new CSVReaderFactory("cities.csv"));
         String column = "LatS";
+        String column2 = "State";
 
         System.out.println(df.at(1, "State").trim());
         System.out.println(df.iat(1, 2).trim());
         System.out.println("Columns: " + df.columns());
         System.out.println("Rows: " + df.size());
-        df.sort(column, new DescendantComparator());
-        df.list();
+        df.sort(column, new AscendantComparator());
+        //df.list();
 
-        List<List<String>> values = df.query(column, new LowerThanPredicate("11"));
-        //list(values);
+        List<List<String>> values = df.query(column2, new EqualThanPredicate("ND"));
+        list(values);
     }
 
     public static void testJSON(){
-        ReaderFactory reader = new JSONReader("cities.json");
-        DataFrame df = reader.read();
+        //ReaderFactory reader = new JSONReaderFactory("cities.json");
+        //DataFrame df = reader.read();
+        DataFrame df = new DataFrame();
+        df.readDataFromFile(new JSONReaderFactory("cities.json"));
         String column = "LatS";
-        int indexOfColumn;
+        String column2 = "State";
 
         System.out.println(df.at(1, "State").trim());
         System.out.println(df.iat(1, 2).trim());
         System.out.println("Columns: " + df.columns());
         System.out.println("Rows: " + df.size());
-        indexOfColumn = df.getColumns().indexOf(column);
         df.sort(column, new AscendantComparator());
-        df.list();
+
+        List<List<String>> values = df.query(column2, new EqualThanPredicate("ND"));
+        list(values);
     }
 
     public static void testTXT(){
-        ReaderFactory reader = new TXTReader("cities.txt");
-        DataFrame df = reader.read();
+        //ReaderFactory reader = new TXTReaderFactory("cities.txt");
+        //DataFrame df = reader.read();
+        DataFrame df = new DataFrame();
+        df.readDataFromFile(new TXTReaderFactory("cities.txt"));
         String column = "LatS";
         int indexOfColumn;
 

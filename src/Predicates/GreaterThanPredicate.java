@@ -3,11 +3,11 @@ package Predicates;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class GreaterThanPredicator extends CustomPredicate {
+public class GreaterThanPredicate extends CustomPredicate {
 
     String value;
 
-    public GreaterThanPredicator(String value){
+    public GreaterThanPredicate(String value){
         super();
         this.value = value;
     }

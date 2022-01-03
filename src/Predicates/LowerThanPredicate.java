@@ -2,11 +2,11 @@ package Predicates;
 
 import java.util.List;
 
-public class LowerThanPredicate extends CustomPredicate{
+public class LowerThanPredicate<T> extends CustomPredicate{
 
-    String value;
+    private T value;
 
-    public LowerThanPredicate(String value){
+    public LowerThanPredicate(T value){
         super();
         this.value = value;
     }
@@ -14,7 +14,7 @@ public class LowerThanPredicate extends CustomPredicate{
 
     @Override
     public boolean test(List<String> strings) {
-        int r = strings.get(super.columnIndex).trim().compareTo(value.trim());
+        int r = strings.get(super.columnIndex).trim().compareTo(String.valueOf(value).trim());
         //System.out.println(strings.get(column) + " compare to " + value + ": " + strings.get(column).compareTo(value));
         if(r < 0){
             return true;

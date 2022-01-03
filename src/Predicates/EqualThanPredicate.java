@@ -3,11 +3,11 @@ package Predicates;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class EqualThanPredicate extends CustomPredicate {
+public class EqualThanPredicate<T> extends CustomPredicate {
 
-    String value;
+    private T value;
 
-    public EqualThanPredicate(String value){
+    public EqualThanPredicate(T value){
         super();
         this.value = value;
     }
@@ -15,7 +15,7 @@ public class EqualThanPredicate extends CustomPredicate {
 
     @Override
     public boolean test(List<String> strings) {
-        int r = strings.get(super.columnIndex).trim().compareTo(value.trim());
+        int r = strings.get(super.columnIndex).trim().compareTo(String.valueOf(value).trim());
         //System.out.println(strings.get(column) + " compare to " + value + ": " + strings.get(column).compareTo(value));
         if(r == 0){
             return true;

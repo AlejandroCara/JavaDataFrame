@@ -19,10 +19,10 @@ import java.util.List;
 public class DFtester {
 
     public static void main(String[] args) {
-        //testCSV();
+        testCSV();
         //testJSON();
         //testTXT();
-        testComposite();
+        //testComposite();
     }
 
     public static void testCSV(){
@@ -31,7 +31,7 @@ public class DFtester {
         DataFrame df = new DataFrame();
         df.readDataFromFile(new CSVReaderFactory("cities.csv"));
         String column = "LatS";
-        String column2 = "State";
+        String column2 = "LatM";
 
         System.out.println(df.at(1, "State").trim());
         System.out.println(df.iat(1, 2).trim());
@@ -40,7 +40,7 @@ public class DFtester {
         df.sort(column, new AscendantComparator());
         //df.list();
 
-        List<List<String>> values = df.query(column2, new EqualThanPredicate("ND"));
+        List<List<String>> values = df.query(column2, new EqualThanPredicate(5));
         list(values);
     }
 

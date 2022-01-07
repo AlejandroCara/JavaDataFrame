@@ -67,7 +67,7 @@ public class Directory implements AComponent{
     @Override
     public List<List<String>> query(String column, CustomPredicate predicator) {
         List<List<String>> result = new ArrayList<>();
-        List<List<String>> tmp = new ArrayList<>();
+        List<List<String>> tmp;
         for(AComponent component: childs){
             tmp = component.query(column, predicator);
             for(List<String> line: tmp){

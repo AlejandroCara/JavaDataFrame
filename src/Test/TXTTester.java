@@ -43,6 +43,13 @@ public class TXTTester {
     public void testSize(){
         DataFrame df = new DataFrame();
         df.readDataFromFile(new TXTReaderFactory("cities.txt"));
+        Assert.assertEquals(129, df.size());
+    }
+
+    @Test
+    public void testQuery(){
+        DataFrame df = new DataFrame();
+        df.readDataFromFile(new TXTReaderFactory("cities.txt"));
         List<List<String>> values = df.query("State", new EqualThanPredicate("SD"));
         Assert.assertEquals("SD", values.get(0).get(9).trim());
     }

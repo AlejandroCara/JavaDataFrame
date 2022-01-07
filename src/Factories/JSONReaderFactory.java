@@ -1,7 +1,6 @@
 package Factories;
 
 import Data.DataFrame;
-import Factories.ReaderFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -54,7 +53,7 @@ public class JSONReaderFactory implements ReaderFactory {
             for(int i = 0; i < arr.length(); i++){
                 obj = (JSONObject) arr.get(i);
                 row = new ArrayList<String>();
-                for(int j = 0; j < df.numOfTags(); j++){
+                for(int j = 0; j < df.columns(); j++){
                     row.add(String.valueOf(obj.get(df.getTagAt(j))));
                 }
                 df.addValue(row);

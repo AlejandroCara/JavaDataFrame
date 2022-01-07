@@ -15,7 +15,6 @@ public class SumVisitor implements Visitor{
 
     @Override
     public void visit(AComponent e) {
-        e.sort(label, new DescendantComparator());
         sumSize+=e.size();
         for(int i = 0; i < e.size(); i++){
             sumVal += Float.valueOf(e.at(i, label).replace(" ", ""));

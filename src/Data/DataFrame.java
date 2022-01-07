@@ -37,50 +37,53 @@ public class DataFrame implements AComponent {
         this.values = inValues;
     }
 
+    //Return all the rows of the dataframe
     public List<List<String>> getValues(){
         return this.values;
     }
 
-    public int numOfTags(){
-        return this.columns.size();
-    }
-
+    //Return the label at the index
     public String getTagAt(int i){
         return this.columns.get(i);
     }
 
+    //Return the list of labels
     public List<String> getColumns(){
         return this.columns;
     }
 
+    //Add a new row to values list
     public void addValue(List<String> inValue){
         this.values.add(inValue);
     }
 
+    //Return the value at the label and row specified
     public String at(int row, String col){
-        //List srow = this.values.get(row);
-        //int fd = this.columns.indexOf(col);
         return this.values.get(row).get(this.columns.indexOf(col));
     }
 
+    //Return the value at the coordinates
     public String iat(int row, int col) {
         return this.values.get(row).get(col);
     }
 
+    //Return the number of labels
     public int columns() {
         return this.columns.size();
     }
 
+    //Return the number of rows
     public int size() {
         return this.values.size();
     }
 
+    //Sort the values by a columnt
     public <T> void sort(String column, CustomComparator comparator) {
         comparator.setColumnIndex(columns.indexOf(column));
         Collections.sort(values, comparator);
-        //Collections.sort(compararator.compare(values.));
     }
 
+    //Return a list of rows that
     public List<List<String>> query(String column, CustomPredicate predicator) {
         predicator.setColumnIndex(this.columns.indexOf(column));
         return (List<List<String>>) values.stream().filter(predicator).collect(Collectors.toList());
@@ -99,6 +102,7 @@ public class DataFrame implements AComponent {
         }
     }
 
+    //Accept a visitor and calls visit function of that visitor
     public void accept(Visitor v){
         v.visit(this);
     }

@@ -1,7 +1,5 @@
 package Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import Data.DataFrame;
 import Factories.CSVReaderFactory;
 import Predicates.EqualThanPredicate;
@@ -43,8 +41,17 @@ public class CSVTester {
     public void testSize(){
         DataFrame df = new DataFrame();
         df.readDataFromFile(new CSVReaderFactory("cities.csv"));
+        Assert.assertEquals(10, df.size());
+    }
+
+    @Test
+    public void testQuery(){
+        DataFrame df = new DataFrame();
+        df.readDataFromFile(new CSVReaderFactory("cities.csv"));
         List<List<String>> values = df.query("State", new EqualThanPredicate("SD"));
         Assert.assertEquals("SD", values.get(0).get(9).trim());
     }
+
+
 
 }

@@ -21,11 +21,3 @@ public class GreaterThanPredicate<T> extends CustomPredicate {
         return false;
     }
 }
-/*    @Override
-    public boolean test(List<java.lang.String> strings) {
-        int r = strings.get(column).trim().compareTo(value.trim());
-        if(r > 0){
-            return true;
-        }
-        return false;
-    }*/

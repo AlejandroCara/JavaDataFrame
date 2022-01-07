@@ -12,6 +12,7 @@ import Factories.TXTReaderFactory;
 import Visitor.MaximumVisitor;
 import Visitor.Visitor;
 import Visitor.SumVisitor;
+import Visitor.AverageVisitor;
 import Visitor.MinimumVisitor;
 
 import java.util.List;
@@ -19,10 +20,10 @@ import java.util.List;
 public class DFtester {
 
     public static void main(String[] args) {
-        testCSV();
+        //testCSV();
         //testJSON();
         //testTXT();
-        //testComposite();
+        testComposite();
     }
 
     public static void testCSV(){
@@ -86,9 +87,9 @@ public class DFtester {
 
         root.addChild(df);
 
-        Visitor mv = new MinimumVisitor("LatS");
+        Visitor mv = new AverageVisitor("LatS");
         root.accept(mv);
-        System.out.println(((MinimumVisitor)mv).getMin());
+        System.out.println(((AverageVisitor)mv).getAvg());
     }
 
     public static void list(List<List<String>> values){

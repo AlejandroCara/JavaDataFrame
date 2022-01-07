@@ -1,7 +1,6 @@
 package Composite;
 
 import Comparators.CustomComparator;
-import Data.DataFrame;
 import Predicates.CustomPredicate;
 import Visitor.Visitor;
 
@@ -22,19 +21,19 @@ public class Directory implements AComponent{
     }
 
     @Override
-    public String at(int row, String col) {
-        String result = "";
+    public List<String> at(int row, String col) {
+        List<String> result = new ArrayList<String>();
         for(AComponent component: childs){
-            result += component.at(row, col) + "\n";
+            result.addAll(component.at(row, col));
         }
         return result;
     }
 
     @Override
-    public String iat(int row, int col) {
-        String result = "";
+    public List<String> iat(int row, int col) {
+        List<String> result = new ArrayList<String>();
         for(AComponent component: childs){
-            result += component.iat(row, col) + "\n";
+            result.addAll(component.iat(row, col));
         }
         return result;
     }

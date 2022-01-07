@@ -34,8 +34,8 @@ public class DFtester {
         String column = "LatS";
         String column2 = "LatM";
 
-        System.out.println(df.at(1, "State").trim());
-        System.out.println(df.iat(1, 2).trim());
+        System.out.println(df.at(1, "State"));
+        System.out.println(df.iat(1, 2));
         System.out.println("Columns: " + df.columns());
         System.out.println("Rows: " + df.size());
         df.sort(column, new AscendantComparator());
@@ -53,8 +53,8 @@ public class DFtester {
         String column = "LatS";
         String column2 = "State";
 
-        System.out.println(df.at(1, "State").trim());
-        System.out.println(df.iat(1, 2).trim());
+        System.out.println(df.at(1, "State"));
+        System.out.println(df.iat(1, 5));
         System.out.println("Columns: " + df.columns());
         System.out.println("Rows: " + df.size());
         df.sort(column, new AscendantComparator());
@@ -71,8 +71,8 @@ public class DFtester {
         String column = "LatS";
         int indexOfColumn;
 
-        System.out.println(df.at(1, "State").trim());
-        System.out.println(df.iat(1, 2).trim());
+        System.out.println(df.at(1, "State"));
+        System.out.println(df.iat(1, 2));
         System.out.println("Columns: " + df.columns());
         System.out.println("Rows: " + df.size());
         indexOfColumn = df.getColumns().indexOf(column);

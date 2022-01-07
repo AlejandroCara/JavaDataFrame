@@ -15,7 +15,7 @@ public class MaximumVisitor implements Visitor{
     @Override
     public void visit(AComponent e) {
         e.sort(label, new DescendantComparator());
-        float val = Float.valueOf(e.at(0, label).replace(" ", ""));
+        float val = Float.valueOf(e.at(0, label).get(0));
         if(val > max){
             max = val;
         }

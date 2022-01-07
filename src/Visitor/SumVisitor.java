@@ -17,7 +17,7 @@ public class SumVisitor implements Visitor{
     public void visit(AComponent e) {
         sumSize+=e.size();
         for(int i = 0; i < e.size(); i++){
-            sumVal += Float.valueOf(e.at(i, label).replace(" ", ""));
+            sumVal += Float.valueOf(e.at(i, label).get(0));
         }
 
     }

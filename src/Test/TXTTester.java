@@ -5,51 +5,48 @@ import Factories.CSVReaderFactory;
 import Factories.TXTReaderFactory;
 import Predicates.EqualThanPredicate;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
 public class TXTTester {
 
+    private DataFrame df;
+
+    @Before
+    public void loadData(){
+        df = new DataFrame();
+        df.readDataFromFile(new CSVReaderFactory("cities.csv"));
+    }
+
     @Test
     public void testRead(){
-        DataFrame df = new DataFrame();
-        df.readDataFromFile(new TXTReaderFactory("cities.txt"));
         Assert.assertNotNull(df.getValues());
     }
 
     @Test
     public void testAt(){
-        DataFrame df = new DataFrame();
-        df.readDataFromFile(new TXTReaderFactory("cities.txt"));
-        Assert.assertEquals("SD", df.at(1, "State").trim());
+        Assert.assertEquals("SD", df.at(1, "State").get(0));
     }
 
     @Test
     public void testIat(){
-        DataFrame df = new DataFrame();
-        df.readDataFromFile(new TXTReaderFactory("cities.txt"));
-        Assert.assertEquals("SD", df.iat(1, 9).trim());
+        Assert.assertEquals("SD", df.iat(1, 9).get(0));
     }
 
     @Test
     public void testColumns(){
-        DataFrame df = new DataFrame();
-        df.readDataFromFile(new TXTReaderFactory("cities.txt"));
         Assert.assertEquals(10, df.columns());
     }
 
     @Test
     public void testSize(){
-        DataFrame df = new DataFrame();
-        df.readDataFromFile(new TXTReaderFactory("cities.txt"));
         Assert.assertEquals(129, df.size());
     }
 
     @Test
     public void testQuery(){
-        DataFrame df = new DataFrame();
-        df.readDataFromFile(new TXTReaderFactory("cities.txt"));
         List<List<String>> values = df.query("State", new EqualThanPredicate("SD"));
         Assert.assertEquals("SD", values.get(0).get(9).trim());
     }

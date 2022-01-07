@@ -58,13 +58,17 @@ public class DataFrame implements AComponent {
     }
 
     //Return the value at the label and row specified
-    public String at(int row, String col){
-        return this.values.get(row).get(this.columns.indexOf(col));
+    public List<String> at(int row, String col){
+        List<String> at = new ArrayList<String>();
+        at.add(this.values.get(row).get(this.columns.indexOf(col)).trim());
+        return at;
     }
 
     //Return the value at the coordinates
-    public String iat(int row, int col) {
-        return this.values.get(row).get(col);
+    public List<String> iat(int row, int col) {
+        List<String> at = new ArrayList<String>();
+        at.add(this.values.get(row).get(col).trim());
+        return at;
     }
 
     //Return the number of labels

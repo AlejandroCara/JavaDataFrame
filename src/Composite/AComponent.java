@@ -8,8 +8,8 @@ import Visitor.Visitor;
 import java.util.List;
 
 public interface AComponent {
-    public String at(int row, String col);
-    public String iat(int row, int col);
+    public List<String> at(int row, String col);
+    public List<String> iat(int row, int col);
     public int columns();
     public int size();
     public <T> void sort(String column, CustomComparator comparator);
